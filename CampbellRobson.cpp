@@ -1,5 +1,6 @@
 #include "CampbellRobson.h"
 
+
 // The nameSpaces
 using namespace cv;
 using namespace std;
@@ -77,9 +78,24 @@ Mat CampbellRobson::GenerateImage(int rows, int columns, bool linear, bool showS
 	
 	Mat newCRChart = Mat::zeros(rows,columns, CV_8UC1);
 	
-	if( CheckLimits(rows) && CheckLimits(columns) && CheckLimits(specificRow) ){
+	if( CheckLimits(rows) && CheckLimits(columns) && CheckLimits(specificRow) ){ /// calcular con crecimiento lineal
+		
+		for(int y=0; y < rows; y++) {
+			for(int x=0; x <columns; x++){
+				newCRChart[j][i] = (127/(rows -1))*y*cos(pow(x,2)) + 128;
+			}
+		}
 		
 		
+	}
+
+	if( CheckLimits(rows) && CheckLimits(columns) && CheckLimits(specificRow) ){ // calcular con crecimiento exponencial
+		
+		for(int y=0; y < rows; y++) {
+			for(int x=0; x <columns; x++){
+				newCRChart[j][i] = exp(log(127)*y/(rows-1))*cos(exp(x)*x) + 127;
+			}
+		}
 		
 		
 	}
