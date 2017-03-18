@@ -128,22 +128,24 @@ bool GetPositionArgv(char *argv[], int argc, string options[], int lenghtOptions
 		// A temp value for the position
 		int tempPos = 0;
 		
+		cout << "Cantidad : " << argc << endl;
+		
 		// Iterate over all the options
 		for (int i = 0; i < argc; i++)
 		{
 			for (int j = 0; j < lenghtOptions; j+=2)
 			{
 				if(options[j] == string(argv[i]) || options[j+1] == string(argv[i])){
-					tempPos = i;
+					tempPos = j/2;
 				}
 			}
 			
 			// Ask if the user insert to times a command like "-r -r"
-			if(posOptions[i/2] != 0 && tempPos > 0){
+			if(posOptions[tempPos] != 0 && tempPos > 0){
 				cout<< "error: invalid expression" <<endl;
 				return true;
 			}else{
-				posOptions[i/2] = tempPos;
+				posOptions[tempPos] = i;
 			}
 			
 			tempPos = 0;
@@ -193,10 +195,10 @@ int main(int argc, char *argv[])
 		bool errorGetPosition = GetPositionArgv(argv,argc,options,lenghtOptions,posOptions);
 		
 		// Check all the values and charge in the variables
-		bool errorRows = (posOptions[0] != 0)?GetIntArgv(argv[posOptions[0]],argv[posOptions[0]+1],"-r","--rows",&rows):false;
-		bool errorColumns = (posOptions[1] != 0)? GetIntArgv(argv[posOptions[1]],argv[posOptions[1]+1],"-c","--columns",&columns):false;
-		lineal = (posOptions[2] != 0)? string(argv[posOptions[2]])=="-l" || string(argv[posOptions[2]])=="--lineal":false;
-		bool errorRowShow = (posOptions[3] != 0)? GetIntArgv(argv[posOptions[3]],argv[posOptions[3]+1],"-x","--rowShow",&rowShow):false;
+		bool errorRows = (posOptions[0] != 0)?GetIntArgv(argv[posOptions[0]-1],argv[posOptions[0]],"-r","--rows",&rows):false;
+		bool errorColumns = (posOptions[1] != 0)? GetIntArgv(argv[posOptions[1]-1],argv[posOptions[1]],"-c","--columns",&columns):false;
+		lineal = (posOptions[2] != 0)? (string(argv[posOptions[2]])=="-l" || string(argv[posOptions[2]])=="--lineal"):false;
+		bool errorRowShow = (posOptions[3] != 0)? GetIntArgv(argv[posOptions[3]-1],argv[posOptions[3]],"-x","--rowShow",&rowShow):false;
 
 		// Check all the errors
 		bool wasAnError = errorGetPosition && errorRows && errorColumns && lineal && errorRowShow;
@@ -204,6 +206,8 @@ int main(int argc, char *argv[])
 	}
 	
 	if( !wasAnError || argc ==1){
+		
+		cout << "lineal " << lineal << endl;
 			
 			// Instanciate the object
 			CampbellRobson generatorChart = CampbellRobson();

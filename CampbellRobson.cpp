@@ -79,7 +79,7 @@ Mat CampbellRobson::GenerateMatrix(float rows, float columns, bool linear){
 	Mat imageMatrix = Mat::zeros(rows,columns, CV_8UC1);
 	
 	// Calculate with linear increase
-	if(!CheckLimits(rows) && !CheckLimits(columns)){ 
+	if(!CheckLimits(rows) && !CheckLimits(columns)){
 		if(linear){
 			for(float y=0; y < rows; y++) {
 				for(float x=0; x <columns; x++){
