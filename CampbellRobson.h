@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <iostream>
 #include <cctype>
 
 #include <opencv/cv.h>
@@ -16,7 +17,9 @@ class CampbellRobson
 {
 	public:
 		CampbellRobson();
-		Mat GenerateImage(int rows, int columns, bool linear, bool showSpecificRow = false, int specificRow = 0);
+		Mat GenerateMatrix(float rows, float columns, bool linear);
+		void GenerateImage(Mat imageMatrix, string path);
+		void PlotGraphic(Mat imageMatrix);
 	private:
 		bool CheckLimits(int condition);
 };

@@ -49,13 +49,13 @@ CampbellRobson::CampbellRobson(void) {
  * 		int condition: the value to check	
  * 
  * Outputs:
- * 		bool if it is in the range
+ * 		bool: if it is in the range (true = is out of bound)
  * 
  * Restrinctions:
  * 			
  *****/
 bool CampbellRobson::CheckLimits(int condition){ 
-	return (condition < 0 || condition > 512);
+	return (condition < 0 || condition > 3000);
 }
 
 
@@ -74,31 +74,38 @@ bool CampbellRobson::CheckLimits(int condition){
  * Restrinctions:
  * 			
  *****/
-Mat CampbellRobson::GenerateImage(int rows, int columns, bool linear, bool showSpecificRow, int specificRow){
+Mat CampbellRobson::GenerateMatrix(float rows, float columns, bool linear){
 	
-	Mat newCRChart = Mat::zeros(rows,columns, CV_8UC1);
+	Mat imageMatrix = Mat::zeros(rows,columns, CV_8UC1);
 	
-	if( CheckLimits(rows) && CheckLimits(columns) && CheckLimits(specificRow) ){ /// calcular con crecimiento lineal
-		
-		for(int y=0; y < rows; y++) {
-			for(int x=0; x <columns; x++){
-				newCRChart[j][i] = (127/(rows -1))*y*cos(pow(x,2)) + 128;
+	// Calculate with linear increase
+	if(!CheckLimits(rows) && !CheckLimits(columns)){ 
+		if(linear){
+			for(float y=0; y < rows; y++) {
+				for(float x=0; x <columns; x++){
+					imageMatrix.at<uchar>(y, x, 0) = (int)((127/(rows -1))*y*cos(pow(x,2))) + 128;
+				}
+			}
+		}else{
+			for(float y=0; y < rows; y++) {
+				for(float x=0; x <columns; x++){
+					imageMatrix.at<uchar>(y, x, 0) = (int)(exp(log(127)*y/(rows-1))*cos(exp(x)*x)) + 127;
+				}
 			}
 		}
-		
-		
 	}
+	
+	return imageMatrix;
+}
 
-	if( CheckLimits(rows) && CheckLimits(columns) && CheckLimits(specificRow) ){ // calcular con crecimiento exponencial
-		
-		for(int y=0; y < rows; y++) {
-			for(int x=0; x <columns; x++){
-				newCRChart[j][i] = exp(log(127)*y/(rows-1))*cos(exp(x)*x) + 127;
-			}
-		}
-		
-		
-	}
+void CampbellRobson::GenerateImage(Mat imageMatrix, string path){
 	
-	return newCRChart;
+	
+	
+}
+
+void CampbellRobson::PlotGraphic(Mat imageMatrix){
+	
+	
+	
 }
