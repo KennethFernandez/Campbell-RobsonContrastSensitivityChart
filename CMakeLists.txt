@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.8)
-project (Campbell-Robson)
+project (CampbellRobson)
 find_package( OpenCV REQUIRED )
-add_executable(Campbell-Robson main.cpp)
-target_link_libraries( Campbell-Robson ${OpenCV_LIBS} )
+add_executable(CampbellRobson main.cpp CampbellRobson.cpp)
+target_link_libraries( CampbellRobson ${OpenCV_LIBS} )

@@ -205,21 +205,27 @@ int main(int argc, char *argv[])
 	
 	if( !wasAnError || argc ==1){
 			
+			// Instanciate the object
+			CampbellRobson generatorChart = CampbellRobson();
+			
+			// If the user want to show the plot of one row
 			if(rowShow != -1){
 				
 				cout<< "mostrar grafico" <<endl;
 				
 			}else{
-		
-				CampbellRobson generatorChart = CampbellRobson();
+				
+				// We get the image
 				Mat img = generatorChart.GenerateMatrix((float)rows,(float)columns,lineal);
 				
+				// Ask if it's empty
 				if(img.empty())
 				{
 					std::cerr << "The image is empty." << std::endl;
 					return EXIT_FAILURE;
 				}
 				
+				// Show the image
 				namedWindow("imagen",WINDOW_AUTOSIZE);
 				imshow("imagen", img);
 					
