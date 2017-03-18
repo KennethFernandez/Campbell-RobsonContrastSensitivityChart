@@ -195,7 +195,7 @@ int main(int argc, char *argv[])
 		// Check all the values and charge in the variables
 		bool errorRows = (posOptions[0] != 0)?GetIntArgv(argv[posOptions[0]],argv[posOptions[0]+1],"-r","--rows",&rows):false;
 		bool errorColumns = (posOptions[1] != 0)? GetIntArgv(argv[posOptions[1]],argv[posOptions[1]+1],"-c","--columns",&columns):false;
-		lineal = (posOptions[2] != 0)? string(argv[5])=="-l" || string(argv[posOptions[2]])=="--lineal":false;
+		lineal = (posOptions[2] != 0)? string(argv[posOptions[2]])=="-l" || string(argv[posOptions[2]])=="--lineal":false;
 		bool errorRowShow = (posOptions[3] != 0)? GetIntArgv(argv[posOptions[3]],argv[posOptions[3]+1],"-x","--rowShow",&rowShow):false;
 
 		// Check all the errors
