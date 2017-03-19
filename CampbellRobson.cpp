@@ -83,7 +83,7 @@ Mat CampbellRobson::GenerateMatrix(float rows, float columns, bool linear){
 		if(linear){
 			for(float y=0; y < rows; y++) {
 				for(float x=0; x <columns; x++){
-					imageMatrix.at<uchar>(y, x, 0) = (int)((127/(rows -1))*y*cos(pow(x,2)* PI / 180.0)) + 128;
+					imageMatrix.at<uchar>(y, x, 0) = (int)((127/(rows -1))*y*cos(pow(x,2)*PI *(1/(pow(columns-1,2)-(pow(columns-2,2))))/360.0)) + 128;
 				}
 			}
 		}else{
