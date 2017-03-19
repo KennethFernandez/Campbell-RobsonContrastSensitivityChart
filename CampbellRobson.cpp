@@ -82,7 +82,7 @@ Mat CampbellRobson::GenerateMatrix(float rows, float columns, bool linear){
 	float Bl = 127/(rows -1);
 	
 	float Ae = log(columns-1)/(2*(columns-1));
-	float Be = log(127)/(rows-1);
+	float Be = log(128)/(rows-1);
 	
 	// Calculate with linear increase
 	if(!CheckLimits(rows) && !CheckLimits(columns)){
