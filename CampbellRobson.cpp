@@ -81,7 +81,7 @@ Mat CampbellRobson::GenerateMatrix(float rows, float columns, bool linear){
 	float Al = (127/(columns -1))/2;
 	float Bl = 127/(rows -1);
 	
-	float Ae = log(127)/(2*(columns-1));
+	float Ae = log(columns-1)/(2*(columns-1));
 	float Be = log(127)/(rows-1);
 	
 	// Calculate with linear increase
@@ -95,7 +95,7 @@ Mat CampbellRobson::GenerateMatrix(float rows, float columns, bool linear){
 		}else{
 			for(float y=0; y < rows; y++) {
 				for(float x=0; x <columns; x++){
-					imageMatrix.at<uchar>(y, x, 0) = (int)(exp(Be*y)*cos(exp(x*Ae)*x*PI/180)) + 127;
+					imageMatrix.at<uchar>(y, x, 0) = (int)(exp(Be*y)*cos(exp(Ae*x)*x*PI/180)) + 127;
 				}
 			}
 		}
