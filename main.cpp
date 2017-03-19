@@ -128,8 +128,6 @@ bool GetPositionArgv(char *argv[], int argc, string options[], int lenghtOptions
 		// A temp value for the position
 		int tempPos = 0;
 		
-		cout << "Cantidad : " << argc << endl;
-		
 		// Iterate over all the options
 		for (int i = 0; i < argc; i++)
 		{
@@ -196,7 +194,7 @@ int main(int argc, char *argv[])
 		
 		// Check all the values and charge in the variables
 		bool errorRows = (posOptions[0] != 0)?GetIntArgv(argv[posOptions[0]-1],argv[posOptions[0]],"-r","--rows",&rows):false;
-		bool errorColumns = (posOptions[1] != 0)? GetIntArgv(argv[posOptions[1]-1],argv[posOptions[1]],"-c","--columns",&columns):false;
+		bool errorColumns = (posOptions[1] != 0)? GetIntArgv(argv[posOptions[1]],argv[posOptions[1]+1],"-c","--columns",&columns):false;
 		lineal = (posOptions[2] != 0)? (string(argv[posOptions[2]])=="-l" || string(argv[posOptions[2]])=="--lineal"):false;
 		bool errorRowShow = (posOptions[3] != 0)? GetIntArgv(argv[posOptions[3]-1],argv[posOptions[3]],"-x","--rowShow",&rowShow):false;
 
@@ -206,8 +204,6 @@ int main(int argc, char *argv[])
 	}
 	
 	if( !wasAnError || argc ==1){
-		
-		cout << "lineal " << lineal << endl;
 			
 			// Instanciate the object
 			CampbellRobson generatorChart = CampbellRobson();
