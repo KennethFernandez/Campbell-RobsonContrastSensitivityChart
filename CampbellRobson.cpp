@@ -78,12 +78,15 @@ Mat CampbellRobson::GenerateMatrix(float rows, float columns, bool linear){
 	
 	Mat imageMatrix = Mat::zeros(rows,columns, CV_8UC1);
 	
+	float Al = 2*PI/(2*(pow(columns-1,2) - pow(columns-2,2)));
+	float Bl = 127/(rows -1);
+	
 	// Calculate with linear increase
 	if(!CheckLimits(rows) && !CheckLimits(columns)){
 		if(linear){
 			for(float y=0; y < rows; y++) {
 				for(float x=0; x <columns; x++){
-					imageMatrix.at<uchar>(y, x, 0) = (int)((127/(rows -1))*y*cos(pow(x,2)*PI *(1/(pow(columns-1,2)-(pow(columns-2,2))))/360.0)) + 128;
+					imageMatrix.at<uchar>(y, x, 0) = (int)(Bl*y*cos((Al*pow(x,2)*PI)/180)) + 128;
 				}
 			}
 		}else{
