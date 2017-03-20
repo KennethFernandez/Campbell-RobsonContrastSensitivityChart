@@ -207,15 +207,8 @@ int main(int argc, char *argv[])
 			
 			// Instanciate the object
 			CampbellRobson generatorChart = CampbellRobson();
-			
-			// If the user want to show the plot of one row
-			if(rowShow != -1){
-				
-				cout<< "mostrar grafico" <<endl;
-				
-			}else{
-				
-				// We get the image
+
+			// We get the image
 				Mat img = generatorChart.GenerateMatrix((float)rows,(float)columns,lineal);
 				
 				// Ask if it's empty
@@ -224,6 +217,26 @@ int main(int argc, char *argv[])
 					std::cerr << "The image is empty." << std::endl;
 					return EXIT_FAILURE;
 				}
+			
+			// If the user want to show the plot of one row
+			if(rowShow != -1){
+				
+				cout<< "mostrar grafico" <<endl;
+
+				Mat data( 1, (float)columns, CV_64F );
+
+				Mat plot_result;
+
+				data.push_back(img[SELECTED_ROW]); //CORREGIR ! agregar SELECTED_ROW como la entrada del usuario despues de -x
+				Ptr<plot::Plot2d> plot = plot::createPlot2d( data );
+
+				plot->render( plot_result );
+
+			    imshow( "plot", plot_result );
+			    waitKey();
+				
+			}else{				
+				
 				
 				// Show the image
 				namedWindow("imagen",WINDOW_AUTOSIZE);
