@@ -223,17 +223,7 @@ int main(int argc, char *argv[])
 				
 				cout<< "mostrar grafico" <<endl;
 
-				Mat data( 1, (float)columns, CV_64F );
-
-				Mat plot_result;
-
-				data.push_back(img[SELECTED_ROW]); //CORREGIR ! agregar SELECTED_ROW como la entrada del usuario despues de -x
-				Ptr<plot::Plot2d> plot = plot::createPlot2d( data );
-
-				plot->render( plot_result );
-
-			    imshow( "plot", plot_result );
-			    waitKey();
+				generatorChart.PlotGraphic(img, columns, rowShow);
 				
 			}else{				
 				
