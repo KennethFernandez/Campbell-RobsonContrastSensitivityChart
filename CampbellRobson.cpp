@@ -110,16 +110,6 @@ void CampbellRobson::GenerateImage(Mat imageMatrix, string path){
 	
 }
 
-void CampbellRobson::PlotGraphic(Mat imageMatrix, columns, rowShow){
-	Mat data( 1, columns, CV_64F );
-
-	Mat plot_result;
-
-	data.push_back(imageMatrix.row(rowShow)); //CORREGIR ! agregar SELECTED_ROW como la entrada del usuario despues de -x
-	Ptr<plot::Plot2d> plot = plot::createPlot2d( data );
-
-	plot->render( plot_result );
-
-    imshow( "plot", plot_result );
-    waitKey();		
+void CampbellRobson::PlotGraphic(Mat imageMatrix, int columns, int rowShow){
+		
 }
