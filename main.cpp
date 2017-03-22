@@ -196,7 +196,7 @@ int main(int argc, char *argv[])
 		bool errorRows = (posOptions[0] != 0)?GetIntArgv(argv[posOptions[0]-1],argv[posOptions[0]],"-r","--rows",&rows):false;
 		bool errorColumns = (posOptions[1] != 0)? GetIntArgv(argv[posOptions[1]],argv[posOptions[1]+1],"-c","--columns",&columns):false;
 		lineal = (posOptions[2] != 0)? (string(argv[posOptions[2]])=="-l" || string(argv[posOptions[2]])=="--lineal"):false;
-		bool errorRowShow = (posOptions[3] != 0)? GetIntArgv(argv[posOptions[3]-1],argv[posOptions[3]],"-x","--rowShow",&rowShow):false;
+		bool errorRowShow = (posOptions[3] != 0)? GetIntArgv(argv[posOptions[3]],argv[posOptions[3]+1],"-x","--rowShow",&rowShow):false;
 
 		// Check all the errors
 		bool wasAnError = errorGetPosition && errorRows && errorColumns && lineal && errorRowShow;
@@ -205,43 +205,33 @@ int main(int argc, char *argv[])
 	
 	if( !wasAnError || argc ==1){
 			
-			// Instanciate the object
-			CampbellRobson generatorChart = CampbellRobson();
-
-			// We get the image
-				Mat img = generatorChart.GenerateMatrix((float)rows,(float)columns,lineal);
-				
-				// Ask if it's empty
-				if(img.empty())
-				{
-					std::cerr << "The image is empty." << std::endl;
-					return EXIT_FAILURE;
-				}
-			
-			// If the user want to show the plot of one row
-			if(rowShow != -1){
-				
-				cout<< "mostrar grafico" <<endl;
-
-				generatorChart.PlotGraphic(img, columns, rowShow);
-				
-			}else{				
-				
-				
-				// Show the image
-				namedWindow("imagen",WINDOW_AUTOSIZE);
-				imshow("imagen", img);
-					
-				waitKey(0);
-				
-				cout<< "imagen " <<endl;
+		// Instanciate the object
+		CampbellRobson generatorChart = CampbellRobson();
 		
-				return EXIT_SUCCESS;
-			}
-			
-		}else{
+		// We get the image
+		Mat img =  generatorChart.GenerateMatrix((float)rows,(float)columns,lineal);
+		img = (rowShow != -1)?generatorChart.PlotGraph(img, columns, rowShow):img;
+		
+		// Ask if it's empty
+		if(img.empty())
+		{
+			cerr << "The image is empty." << endl;
 			return EXIT_FAILURE;
 		}
+		
+		generatorChart.GenerateImage(img, "./CampbellRobson.jpg");
+		
+		// Show the image
+		namedWindow("imagen",WINDOW_AUTOSIZE);
+		imshow("imagen", img);
+					
+		waitKey(0);
+		
+		return EXIT_SUCCESS;
+			
+	}else{
+		return EXIT_FAILURE;
+	}
 
   return EXIT_SUCCESS;
   

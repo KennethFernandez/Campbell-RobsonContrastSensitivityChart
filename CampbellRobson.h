@@ -4,6 +4,7 @@
 #include <math.h>
 #include <iostream>
 #include <cctype>
+#include <algorithm>
 
 #include <opencv/cv.h>
 #include "opencv2/core/core.hpp"
@@ -19,7 +20,8 @@ class CampbellRobson
 		CampbellRobson();
 		Mat GenerateMatrix(float rows, float columns, bool linear);
 		void GenerateImage(Mat imageMatrix, string path);
-		void PlotGraphic(Mat imageMatrix, int columns, int rowShow);
+		Mat PlotGraph(Mat imageMatrix, int columns, int rowShow);
 	private:
 		bool CheckLimits(int condition);
+		Mat PlotGraphAux(Mat imageIn, int colums, int row);
 };

@@ -106,10 +106,71 @@ Mat CampbellRobson::GenerateMatrix(float rows, float columns, bool linear){
 
 void CampbellRobson::GenerateImage(Mat imageMatrix, string path){
 	
-	
+	imwrite(path,imageMatrix);
 	
 }
 
-void CampbellRobson::PlotGraphic(Mat imageMatrix, int columns, int rowShow){
+
+/******************************************************
+ * 
+ * Constructor of the class Campbell-Robson with default values
+ * 
+ * **********************************************
+ * 
+ * Inputs: 
+ * 		Mat imageMatrix: The original image
+ * 		int columns: The amount of columns to show
+ * 		int rowShow: The row to show
+ * 
+ * Outputs:
+ * 		Mat: the matrix with the points to show
+ * 
+ * Restrinctions:
+ * 		-------
+ *****/
+Mat CampbellRobson::PlotGraph(Mat imageMatrix, int columns, int rowShow){
+	
+	return PlotGraphAux(imageMatrix, columns, rowShow);
 		
+}
+
+
+/******************************************************
+ * 
+ * Constructor of the class Campbell-Robson with default values
+ * 
+ * **********************************************
+ * 
+ * Inputs: 
+ * 		Mat image: the values of the row 
+ * 		int YRange[2]: the range
+ * 		double min: the minimum value
+ * 		double max: the maximum value
+ * 
+ * Outputs:
+ * 		-------
+ * 
+ * Restrinctions:
+ * 		-------
+ *****/
+Mat CampbellRobson::PlotGraphAux(Mat imageIn, int columns, int row)
+{
+
+    int cols = imageIn.cols;
+    
+    int rows = columns + 1;
+    cv::Mat image = Mat::zeros(rows, cols, CV_8UC3);
+    image.setTo(0);
+    
+    for (int i = 0; i < cols-1; i++)
+    {
+		int y1 = 256 -((int)imageIn.at<char>(row,i));
+		int y2 = 256 -((int)imageIn.at<char>(row,i+1));
+		
+		cout << "pixel: " << i << " value: " << ((int)imageIn.at<char>(row,i)) << endl;
+		
+        cv::line(image, Point(i, y1), Point(i+1, y2), Scalar(255, 0, 0), 1);
+    }
+
+    return image;
 }
