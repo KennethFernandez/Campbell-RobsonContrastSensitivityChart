@@ -10,6 +10,7 @@ using namespace std;
  * 
  ***************************************/
 #define PI 3.14159265
+#define MF 1.705
 
 
 /***************************************
@@ -81,7 +82,7 @@ Mat CampbellRobson::GenerateMatrix(float rows, float columns, bool linear){
 	float Al = (127/(columns -1))/2;
 	float Bl = 127/(rows -1);
 	
-	float Ae = log(columns-1)/(2*(columns-1));
+	float Ae = log(columns-1)/(MF*(columns-1));
 	float Be = log(128)/(rows-1);
 	
 	// Calculate with linear increase
