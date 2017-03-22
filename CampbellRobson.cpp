@@ -164,8 +164,8 @@ Mat CampbellRobson::PlotGraphAux(Mat imageIn, int columns, int row)
     
     for (int i = 0; i < cols-1; i++)
     {
-		int y1 = 256 -((int)imageIn.at<char>(row,i));
-		int y2 = 256 -((int)imageIn.at<char>(row,i+1));
+		int y1 = 256 + 128 -((int)imageIn.at<uchar>(row,i));
+		int y2 = 256 + 128 -((int)imageIn.at<uchar>(row,i+1));
 		
 		cout << "pixel: " << i << " value: " << ((int)imageIn.at<char>(row,i)) << endl;
 		
